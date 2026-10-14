@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BT LATAM TEC Tecnología para Latinoamérica</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles(1).css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles(1).css') }}">
+  
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header__top">
+      <div class="container header__top-inner">
+        <a href="#" class="header__logo">
+          <span class="logo__icon"><i class="fas fa-bolt"></i></span>
+          <span class="logo__text">BT <span>LATAM</span> TEC</span>
+        </a>
+        <div class="header__search">
+          <div class="search__wrapper">
+            <input type="text" id="searchInput" class="search__input" placeholder="Busca laptops, smartphones, TVs, audífonos…" autocomplete="off" />
+            <button class="search__btn" id="searchBtn">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div class="search__suggestions" id="searchSuggestions"></div>
+        </div>
+        <div class="header__actions">
+          <button class="action__btn" id="themeToggle" title="Modo oscuro">
+            <i class="fas fa-moon"></i>
+          </button>
+          <button class="action__btn" id="loginBtn" title="Mi cuenta">
+            <i class="fas fa-user"></i>
+            <span class="action__label">Mi cuenta</span>
+          </button>
+          {% if usuario_actual %}<a class="action__btn" href="{{ url_for('crud') }}" title="CRUD"><i class="fas fa-box"></i><span class="action__label">CRUD</span></a><a class="action__btn" href="{{ url_for('logout') }}" title="Salir"><i class="fas fa-sign-out-alt"></i><span class="action__label">Salir</span></a>{% endif %}<button class="action__btn cart__btn" id="cartBtn" title="Carrito">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart__badge" id="cartBadge">0</span>
+            <span class="action__label">Carrito</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <nav class="header__nav">
+      <div class="container nav__inner">
+        <button class="nav__all-btn"><i class="fas fa-th-large"></i> Categorías</button>
+        <ul class="nav__list" id="navList">
+          <li><a href="#" data-cat="laptops"><i class="fas fa-laptop"></i> Laptops</a></li>
+          <li><a href="#" data-cat="smartphones"><i class="fas fa-mobile-alt"></i> Smartphones</a></li>
+          <li><a href="#" data-cat="audifonos"><i class="fas fa-headphones"></i> Audífonos</a></li>
+          <li><a href="#" data-cat="tvs"><i class="fas fa-tv"></i> TVs</a></li>
+          <li><a href="#" data-cat="tablets"><i class="fas fa-tablet-alt"></i> Tablets</a></li>
+          <li><a href="#" data-cat="consolas"><i class="fas fa-gamepad"></i> Consolas</a></li>
+          <li><a href="#" data-cat="drones"><i class="fas fa-helicopter"></i> Drones</a></li>
+          <li><a href="#" data-cat="accesorios"><i class="fas fa-plug"></i> Accesorios</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- MAIN  -->
+  <main>
+    <!-- HERO BANNER -->
+    <section class="hero" id="hero">
+      <div class="hero__slides" id="heroSlides">
+        <div class="hero__slide hero__slide--active" style="--slide-bg: linear-gradient(135deg, #0a1628 0%, #1a3a6e 50%, #0066cc 100%)">
+          <div class="container hero__content">
+            <div class="hero__text">
+              <span class="hero__tag"> OFERTA ESPECIAL🔥</span>
+              <h1 class="hero__title">MacBook Pro M3<br/><span>hasta 30% OFF</span></h1>
+              <p class="hero__sub">Envío gratis a todo Colombia. Cuotas sin interés.</p>
+              <div class="hero__cta-group">
+                <button class="btn btn--primary" onclick="scrollToProducts()">Ver ofertas</button>
+                <button class="btn btn--outline">Ver más</button>
+              </div>
+            </div>
+            <div class="hero__visual">
+              <div class="hero__device hero__device--laptop">
+                <i class="fas fa-laptop"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__slide" style="--slide-bg: linear-gradient(135deg, #1a0a2e 0%, #4a1060 50%, #cc0066 100%)">
+          <div class="container hero__content">
+            <div class="hero__text">
+              <span class="hero__tag"> FLASH SALE ⚡</span>
+              <h1 class="hero__title">Samsung Galaxy S25<br/><span>desde $699</span></h1>
+              <p class="hero__sub">Financiación disponible. Entrega en 24h.</p>
+              <div class="hero__cta-group">
+                <button class="btn btn--primary" onclick="scrollToProducts()">Comprar ahora</button>
+                <button class="btn btn--outline">Conocer más</button>
+              </div>
+            </div>
+            <div class="hero__visual">
+              <div class="hero__device hero__device--phone">
+                <i class="fas fa-mobile-alt"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero__slide" style="--slide-bg: linear-gradient(135deg, #0a2818 0%, #1a6e3a 50%, #00cc66 100%)">
+          <div class="container hero__content">
+            <div class="hero__text">
+              <span class="hero__tag"> GAMING WEEK 🎮</span>
+              <h1 class="hero__title">PlayStation 5<br/><span>Envío gratis</span></h1>
+              <p class="hero__sub">Stock limitado. ¡Aprovecha ahora!</p>
+              <div class="hero__cta-group">
+                <button class="btn btn--primary" onclick="scrollToProducts()">Ver consolas</button>
+                <button class="btn btn--outline">Ver bundle</button>
+              </div>
+            </div>
+            <div class="hero__visual">
+              <div class="hero__device hero__device--console">
+                <i class="fas fa-gamepad"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div cass="hero__dots" id="heroDots">
+        <button class="hero__dot hero__dot--active" data-slide="0"></button>
+        <button class="hero__dot" data-slide="1"></button>
+        <button class="hero__dot" data-slide="2"></button>
+      </div>
+      <button class="hero__arrow hero__arrow--prev" id="heroPrev"><i class="fas fa-chevron-left"></i></button>
+      <button class="hero__arrow hero__arrow--next" id="heroNext"><i class="fas fa-chevron-right"></i></button>
+    </section>
+    <!-- TRUST BAR -->
+    <section class="trust-bar">
+      <div class="container trust-bar__inner">
+        <div class="trust__item">
+          <i class="fas fa-shipping-fast"></i>
+          <div>
+            <strong>Envío gratis</strong>
+            <span>En compras +$50</span>
+          </div>
+        </div>
+        <div class="trust__item">
+          <i class="fas fa-shield-alt"></i>
+          <div>
+            <strong>Compra segura</strong>
+            <span>Pago 100% protegido</span>
+          </div>
+        </div>
+        <div class="trust__item">
+          <i class="fas fa-undo"></i>
+          <div>
+            <strong>30 días devolución</strong>
+            <span>Sin preguntas</span>
+          </div>
+        </div>
+        <div class="trust__item">
+          <i class="fas fa-headset"></i>
+          <div>
+            <strong>Soporte 24/7</strong>
+            <span>Atención en español</span>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- CATEGORÍAS -->
+    <section class="categories section" id="categories">
+      <div class="container">
+        <h2 class="section__title">Explora por categoría</h2>
+        <div class="categories__grid">
+          <button class="category__card" data-cat="laptops">
+            <div class="category__icon" style="--cat-color: #0066cc"><i class="fas fa-laptop"></i></div>
+            <span>Laptops</span>
+          </button>
+          <button class="category__card" data-cat="smartphones">
+            <div class="category__icon" style="--cat-color: #7c3aed"><i class="fas fa-mobile-alt"></i></div>
+            <span>Smartphones</span>
+          </button>
+          <button class="category__card" data-cat="audifonos">
+            <div class="category__icon" style="--cat-color: #059669"><i class="fas fa-headphones"></i></div>
+            <span>Audífonos</span>
+          </button>
+          <button class="category__card" data-cat="tvs">
+            <div class="category__icon" style="--cat-color: #dc2626"><i class="fas fa-tv"></i></div>
+            <span>Smart TVs</span>
+          </button>
+          <button class="category__card" data-cat="tablets">
+            <div class="category__icon" style="--cat-color: #d97706"><i class="fas fa-tablet-alt"></i></div>
+            <span>Tablets</span>
+          </button>
+          <button class="category__card" data-cat="consolas">
+            <div class="category__icon" style="--cat-color: #0891b2"><i class="fas fa-gamepad"></i></div>
+            <span>Consolas</span>
+          </button>
+          <button class="category__card" data-cat="drones">
+            <div class="category__icon" style="--cat-color: #be185d"><i class="fas fa-helicopter"></i></div>
+            <span>Drones</span>
+          </button>
+          <button class="category__card" data-cat="accesorios">
+            <div class="category__icon" style="--cat-color: #475569"><i class="fas fa-plug"></i></div>
+            <span>Accesorios</span>
+          </button>
+        </div>
+      </div>
+    </section>
+    <!-- FILTROS + PRODUCTOS -->
+    <section class="products-section section" id="products">
+      <div class="container">
+        <div class="products-section__header">
+          <h2 class="section__title" id="productsTitle">Productos Destacados</h2>
+          <div class="products-section__controls">
+            <div class="filter__group">
+              <label>Ordenar por:</label>
+              <select id="sortSelect" class="filter__select">
+                <option value="default">Relevancia</option>
+                <option value="price-asc">Precio: menor a mayor</option>
+                <option value="price-desc">Precio: mayor a menor</option>
+                <option value="rating">Mejor valorados</option>
+              </select>
+            </div>
+            <div class="filter__group">
+              <label>Precio máx:</label>
+              <select id="priceFilter" class="filter__select">
+                <option value="0">Todos</option>
+                <option value="100">Hasta $100</option>
+                <option value="300">Hasta $300</option>
+                <option value="500">Hasta $500</option>
+                <option value="1000">Hasta $1,000</option>
+                <option value="2000">Hasta $2,000</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="products__grid" id="productsGrid">
+          <!-- Generado por JS -->
+        </div>
+        <div class="products__empty" id="productsEmpty" style="display:none">
+          <i class="fas fa-search"></i>
+          <p>No encontramos productos con ese criterio.</p>
+          <button class="btn btn--primary" onclick="resetFilters()">Ver todos</button>
+        </div>
+      </div>
+    </section>
+    <!-- FLASH SALE / MÁS VENDIDOS -->
+    <section class="flash-sale section" id="flashSale">
+      <div class="container">
+        <div class="flash-sale__header">
+          <div class="flash-sale__title-group">
+            <span class="flash-icon">⚡</span>
+            <h2 class="section__title">Más Vendidos</h2>
+          </div>
+          <div class="flash-sale__timer" id="flashTimer">
+            <span>Oferta termina en:</span>
+            <div class="timer__box"><span id="timerH">08</span>h</div>
+            <div class="timer__box"><span id="timerM">45</span>m</div>
+            <div class="timer__box"><span id="timerS">30</span>s</div>
+          </div>
+        </div>
+        <div class="flash-sale__grid" id="flashGrid">
+          <!-- Generado por JS -->
+        </div>
+      </div>
+    </section>
+    <!-- BANNER PROMO -->
+    <section class="promo-banner">
+      <div class="container promo-banner__inner">
+        <div class="promo-banner__text">
+          <h3>¿Primera compra? 🎁</h3>
+          <p>Regístrate y obtén <strong>10% de descuento</strong> en tu primer pedido</p>
+        </div>
+        <button class="btn btn--primary" id="promoBannerBtn">Registrarme ahora</button>
+      </div>
+    </section>
+  </main>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div class="footer__brand">
+        <a href="#" class="header__logo footer__logo">
+          <span class="logo__icon"><i class="fas fa-bolt"></i></span>
+          <span class="logo__text">BT <span>LATAM</span> TEC</span>
+        </a>
+        <p>Tecnología de calidad para toda Latinoamérica. Bogotá, Colombia.</p>
+        <div class="footer__social">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+          <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+      <div class="footer__links">
+        <h4>Comprar</h4>
+        <ul>
+          <li><a href="#">Laptops</a></li>
+          <li><a href="#">Smartphones</a></li>
+          <li><a href="#">Smart TVs</a></li>
+          <li><a href="#">Tablets</a></li>
+          <li><a href="#">Ofertas del día</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <h4>Mi cuenta</h4>
+        <ul>
+          <li><a href="#" id="footerLoginLink">Iniciar sesión</a></li>
+          <li><a href="#">Mis pedidos</a></li>
+          <li><a href="#">Lista de deseos</a></li>
+          <li><a href="#">Mis cupones</a></li>
+        </ul>
+      </div>
+      <div class="footer__links">
+        <h4>Ayuda</h4>
+        <ul>
+          <li><a href="#">Centro de ayuda</a></li>
+          <li><a href="#">Envíos y entregas</a></li>
+          <li><a href="#">Devoluciones</a></li>
+          <li><a href="#">Garantía</a></li>
+          <li><a href="#">Contáctanos</a></li>
+        </ul>
+      </div>
+      <div class="footer__newsletter">
+        <h4>Newsletter</h4>
+        <p>Recibe las mejores ofertas en tu correo.</p>
+        <div class="newsletter__form">
+          <input type="email" placeholder="tu@email.com" class="newsletter__input" />
+          <button class="btn btn--primary">Suscribir</button>
+        </div>
+        <div class="footer__payments">
+          <span>Pagos seguros con:</span>
+          <div class="payment__icons">
+            <i class="fab fa-cc-visa"></i>
+            <i class="fab fa-cc-mastercard"></i>
+            <i class="fab fa-cc-paypal"></i>
+            <i class="fab fa-cc-amex"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div class="container footer__bottom-inner">
+        <p>© 2025 BT LATAM TEC. Todos los derechos reservados.</p>
+        <div class="footer__legal">
+          <a href="#">Términos y condiciones</a>
+          <a href="#">Política de privacidad</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- MODALES -->
+  <!-- MODAL: CARRITO -->
+  <div class="modal__overlay" id="cartModal">
+    <div class="modal cart-modal">
+      <div class="modal__header">
+        <h3><i class="fas fa-shopping-cart"></i> Mi Carrito</h3>
+        <button class="modal__close" data-modal="cartModal"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal__body">
+        <div class="cart__items" id="cartItems"><!-- JS --></div>
+        <div class="cart__empty" id="cartEmpty">
+          <i class="fas fa-shopping-cart"></i>
+          <p>Tu carrito está vacío</p>
+          <button class="btn btn--primary" data-modal-close="cartModal">Ver productos</button>
+        </div>
+      </div>
+      <div class="modal__footer cart__footer" id="cartFooter">
+        <div class="cart__summary">
+          <div class="cart__summary-row">
+            <span>Subtotal:</span><strong id="cartSubtotal">$0.00</strong>
+          </div>
+          <div class="cart__summary-row">
+            <span>Envío:</span><strong id="cartShipping">Gratis</strong>
+          </div>
+          <div class="cart__summary-row cart__total-row">
+            <span>Total:</span><strong id="cartTotal">$0.00</strong>
+          </div>
+        </div>
+        <button class="btn btn--primary btn--full" id="checkoutBtn">
+          <i class="fas fa-lock"></i> Finalizar compra
+        </button>
+        <button class="btn btn--ghost btn--full" data-modal-close="cartModal">Seguir comprando</button>
+      </div>
+    </div>
+  </div>
+  <!-- MODAL - PRODUCTO -->
+  <div class="modal__overlay" id="productModal">
+    <div class="modal product-modal">
+      <button class="modal__close" data-modal="productModal"><i class="fas fa-times"></i></button>
+      <div class="product-modal__inner" id="productModalInner"><!-- JS --></div>
+    </div>
+  </div>
+  <!-- MODAL - LOGIN/REGISTRO -->
+  
+  <div class="modal__overlay" id="loginModal">
+    <div class="modal login-modal">
+      <button class="modal__close" data-modal="loginModal"><i class="fas fa-times"></i></button>
+      <div class="login-modal__brand">
+        <span class="logo__icon"><i class="fas fa-bolt"></i></span>
+        <span class="logo__text">BT <span>LATAM</span> TEC</span>
+      </div>
+      <div class="login-modal__tabs">
+        <button class="tab__btn tab__btn--active" data-tab="login">Iniciar sesión</button>
+        <button class="tab__btn" data-tab="register">Crear cuenta</button>
+      </div>
+
+      <div class="tab__content tab__content--active" id="tab-login">
+        <form method="post" action="{{ url_for('login') }}">
+          <div class="form__group">
+            <label>Email</label>
+            <div class="input__wrapper"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="tu@email.com" required /></div>
+          </div>
+          <div class="form__group">
+            <label>Contraseña</label>
+            <div class="input__wrapper"><i class="fas fa-lock"></i><input type="password" name="password" placeholder="••••••••" required /></div>
+          </div>
+          <button class="btn btn--primary btn--full" type="submit">Ingresar</button>
+        </form>
+      </div>
+
+      <div class="tab__content" id="tab-register">
+        <form method="post" action="{{ url_for('register') }}">
+          <div class="form__group">
+            <label>Nombre completo</label>
+            <div class="input__wrapper"><i class="fas fa-user"></i><input type="text" name="nombre" placeholder="Juan Pérez" required /></div>
+          </div>
+          <div class="form__group">
+            <label>Email</label>
+            <div class="input__wrapper"><i class="fas fa-envelope"></i><input type="email" name="email" placeholder="tu@email.com" required /></div>
+          </div>
+          <div class="form__group">
+            <label>Contraseña</label>
+            <div class="input__wrapper"><i class="fas fa-lock"></i><input type="password" name="password" placeholder="Mínimo 6 caracteres" required /></div>
+          </div>
+          <div class="form__group">
+            <label>Confirmar contraseña</label>
+            <div class="input__wrapper"><i class="fas fa-lock"></i><input type="password" name="confirm_password" placeholder="Repite tu contraseña" required /></div>
+          </div>
+          <button class="btn btn--primary btn--full" type="submit">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: COMPRA EXITOSA -->
+  <div class="modal__overlay" id="successModal">
+    <div class="modal success-modal">
+      <div class="success-modal__icon"><i class="fas fa-check-circle"></i></div>
+      <h3>¡Compra realizada!</h3>
+      <p>Tu pedido fue procesado correctamente. Recibirás un correo de confirmación pronto.</p>
+      <div class="success-modal__order">
+        <span>Número de orden:</span>
+        <strong id="orderNumber">#BT-00000</strong>
+      </div>
+      <button class="btn btn--primary" data-modal-close="successModal">¡Entendido!</button>
+    </div>
+  </div>
+  <!-- TOAST -->
+  <div class="toast" id="toast">
+    <i class="fas fa-check-circle"></i>
+    <span id="toastMsg">Producto añadido al carrito</span>
+  </div>
+  
+  <script>window.BT_PRODUCTS = {{ products_json|tojson }};</script>
+  <script src="{{ url_for('static', filename='script(1).js') }}"></script>
+</body>
+</html>

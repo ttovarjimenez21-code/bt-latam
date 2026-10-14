@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRUD - BT LATAM TEC</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles(1).css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="container" style="padding:30px 15px;">
+  {% with messages = get_flashed_messages(with_categories=true) %}{% if messages %}{% for category, message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endif %}{% endwith %}
+
+  <div class="bt-simple-panel">
+    <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;">
+      <h1 class="section__title" style="margin:0;">CRUD de productos</h1>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a class="btn btn--ghost" href="{{ url_for('index') }}">Volver a la tienda</a>
+        <a class="btn btn--primary" href="{{ url_for('logout') }}">Salir</a>
+      </div>
+    </div>
+
+    <form method="post" action="{{ url_for('producto_nuevo') }}" style="margin-top:20px;">
+      <div class="bt-simple-grid">
+        <input name="name" placeholder="Nombre" required>
+        <input name="brand" placeholder="Marca">
+        <input name="category" placeholder="Categoría" required>
+        <input name="price" type="number" step="0.01" placeholder="Precio" required>
+        <input name="original_price" type="number" step="0.01" placeholder="Precio original">
+        <input name="icon" placeholder="Emoji icono, ej: 💻">
+        <input name="rating" type="number" step="0.1" min="0" max="5" placeholder="Rating">
+        <input name="reviews" type="number" min="0" placeholder="Reseñas">
+        <input name="badge" placeholder="sale / new / hot">
+        <input name="shipping" placeholder="Tipo de envío">
+        <textarea name="description" placeholder="Descripción"></textarea>
+      </div>
+      <div style="margin-top:14px;">
+        <button class="btn btn--primary" type="submit">Guardar producto</button>
+      </div>
+    </form>
+
+    <div class="bt-table-wrap">
+      <table class="bt-table">
+        <thead>
+          <tr>
+            <th>ID</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in productos %}
+          <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.name }}</td>
+            <td>{{ p.category }}</td>
+            <td>${{ "{:,.2f}".format(p.price) }}</td>
+            <td>
+              <a class="btn btn--ghost" href="{{ url_for('producto_editar', producto_id=p.id) }}">Editar</a>
+              <form method="post" action="{{ url_for('producto_eliminar', producto_id=p.id) }}" class="bt-inline" onsubmit="return confirm('¿Eliminar producto?');">
+                <button class="btn btn--ghost" style="background:#e53e3e;color:#fff;" type="submit">Eliminar</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</body>
+</html>
