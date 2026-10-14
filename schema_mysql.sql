@@ -1,0 +1,26 @@
+CREATE DATABASE IF NOT EXISTS bt_latam_tec_simple CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE bt_latam_tec_simple;
+
+CREATE TABLE IF NOT EXISTS usuarios (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nombre VARCHAR(120) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS productos (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(180) NOT NULL,
+  brand VARCHAR(120) NOT NULL,
+  category VARCHAR(80) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  original_price DECIMAL(10,2),
+  icon VARCHAR(20),
+  rating DECIMAL(3,1) DEFAULT 4.5,
+  reviews INT DEFAULT 0,
+  badge VARCHAR(30),
+  shipping VARCHAR(120),
+  description VARCHAR(500),
+  creado_en DATETIME DEFAULT CURRENT_TIMESTAMP
+);
